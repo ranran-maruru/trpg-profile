@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadScenarios() {
   try {
     // システムカラーのデータを読み込む
-    systemInfo = await fetch('data/system_info.json').then(res => res.json());
+    systemInfo = await fetch('./data/system_info.json').then(res => res.json());
 
     // 6版のシナリオデータを読み込む
-    const response = await fetch('data/coc6th.json');
+    const response = await fetch('./data/coc6th.json');
     const coc6th_data = await response.json();
     coc6th_data.forEach(scenario => {
       scenario.system = 'coc6th';
