@@ -9,7 +9,7 @@ services:
     volumes:
       - ./server.py:/app/server.py
       - ./data:/app/data
-      - ./pages:/app/pages
+      - ./docs:/app/docs
     environment:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped

@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # ファイルをコピー
-COPY pages/ ./pages/
+COPY docs/ ./docs/
 COPY data/ ./data/
 COPY server.py .
 
