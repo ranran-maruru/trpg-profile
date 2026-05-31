@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="scenario.css" />
+    <script src="scenario.js" defer></script>
+    <title>シナリオ管理</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="tab-container">
+        <ul>
+          <!-- スライド用のインジケーター -->
+          <div class="slide-indicator"></div>
+          <li class="selected" data-id="tab-1">通過済みリスト</li>
+          <li data-id="tab-2">GMできるシナリオ</li>
+          <li data-id="tab-3">行きたいシナリオ</li>
+        </ul>
+        <!-- 通過済みリスト -->
+        <div class="tab-content selected" id="tab-1">
+          <!-- フィルタ・検索 -->
+          <div class="scenarios-section">
+            <div class="filter-section display-none">
+              <div>
+                <label for="searchInput">検索</label>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="シナリオ名で検索"
+                />
+              </div>
+              <div>
+                <label for="sortBy">ソート</label>
+                <select id="sortBy" onchange="filterScenarios()">
+                  <option value="date-desc">最新順</option>
+                  <option value="date-asc">古い順</option>
+                  <option value="name">シナリオ名順</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 統計情報 -->
+            <div class="stats" id="stats"> </div>
+            <!-- シナリオ一覧 -->
+            <div class="scenarios-grid" id="scenariosGrid">
+              <div class="empty-state">
+                <div class="empty-state-icon">📚</div>
+                <p>通過済みシナリオがまだありません。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-2">
+          <div> 準備中 </div>
+        </div>
+        <div class="tab-content" id="tab-3">
+          <div> 準備中 </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

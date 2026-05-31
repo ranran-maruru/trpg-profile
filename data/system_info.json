@@ -1,0 +1,10 @@
+ {
+    "coc6th": {"color": "#72EE9A","name": "CoC 6th"},
+    "coc7th": {"color": "#EDD472","name": "CoC 7th"},
+    "dx3rd": {"color": "#72BEEA","name": "DX3rd"},
+    "futarisousa": {"color": "#6E5A5A","name": "フタリソウサ"},
+    "insane": {"color": "#E27272","name": "インセイン"},
+    "murder": {"color": "#E27272","name": "マーダーミステリー"},
+    "bullet": {"color": "#E27272","name": "キズナバレット"},
+    "other": {"color": "#BEBEBE","name": "その他"}
+}

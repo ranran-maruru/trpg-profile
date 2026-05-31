@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  trpg-scenario:
+    build: .
+    container_name: trpg-scenario-server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server.py:/app/server.py
+      - ./data:/app/data
+      - ./pages:/app/pages
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
