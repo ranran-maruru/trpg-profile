@@ -8,7 +8,6 @@ services:
       - "8000:8000"
     volumes:
       - ./server.py:/app/server.py
-      - ./data:/app/data
       - ./docs:/app/docs
     environment:
       - PYTHONUNBUFFERED=1

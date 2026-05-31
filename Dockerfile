@@ -4,7 +4,6 @@ WORKDIR /app
 
 # ファイルをコピー
 COPY docs/ ./docs/
-COPY data/ ./data/
 COPY server.py .
 
 # ポート8000を公開
