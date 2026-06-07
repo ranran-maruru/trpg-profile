@@ -46,6 +46,13 @@ async function loadScenarios() {
       scenario.system = 'coc6th';
     });
 
+    // 7版のシナリオデータを読み込む
+    const coc7th_response = await fetch('./data/coc7th.json');
+    const coc7th_data = await coc7th_response.json();
+    coc7th_data.forEach(scenario => {
+      scenario.system = 'coc7th';
+    });
+
     // マダミスのシナリオデータを読み込む
     console.log('システム情報:', systemInfo);
     const madamis_response = await fetch('./data/madamis.json');
@@ -76,7 +83,7 @@ async function loadScenarios() {
     });
 
     // シナリオデータを統合して表示
-    scenarios = [...coc6th_data, ...madamis_data, ...dx3rd_data, ...insane_data, ...futarisousa_data];
+    scenarios = [...coc6th_data, ...coc7th_data, ...madamis_data, ...dx3rd_data, ...insane_data, ...futarisousa_data];
     renderScenarios();
   } catch (error) {
     console.error('エラー:', error);
@@ -134,7 +141,7 @@ function renderFilteredScenarios(filtered) {
   }
   // システムごとに分けて表示
   grid.innerHTML = '';
-  const systems = ["coc6th", "madamis", "dx3rd", "insane", "futarisousa"];
+  const systems = ["coc6th", "coc7th", "madamis", "dx3rd", "insane", "futarisousa"];
   systems.forEach(systems => {
     const systemScenarios = filtered.filter(s => s.system === systems);
     if (systemScenarios.length === 0) return;
