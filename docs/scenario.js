@@ -68,8 +68,15 @@ async function loadScenarios() {
       scenario.system = 'insane';
     });
 
+    // フタリソウサのシナリオデータを読み込む
+    const futarisousa_response = await fetch('./data/futarisousa.json');
+    const futarisousa_data = await futarisousa_response.json();
+    futarisousa_data.forEach(scenario => {
+      scenario.system = 'futarisousa';
+    });
+
     // シナリオデータを統合して表示
-    scenarios = [...coc6th_data, ...madamis_data, ...dx3rd_data, ...insane_data];
+    scenarios = [...coc6th_data, ...madamis_data, ...dx3rd_data, ...insane_data, ...futarisousa_data];
     renderScenarios();
   } catch (error) {
     console.error('エラー:', error);
@@ -127,7 +134,7 @@ function renderFilteredScenarios(filtered) {
   }
   // システムごとに分けて表示
   grid.innerHTML = '';
-  const systems = ["coc6th", "madamis", "dx3rd", "insane"];
+  const systems = ["coc6th", "madamis", "dx3rd", "insane", "futarisousa"];
   systems.forEach(systems => {
     const systemScenarios = filtered.filter(s => s.system === systems);
     if (systemScenarios.length === 0) return;
