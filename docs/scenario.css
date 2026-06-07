@@ -81,6 +81,15 @@ h1 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+.scenario-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-weight: 500;
+    color: #333;
+}
+
 .scenario-title {
     font-size: 18px;
     font-weight: bold;
@@ -169,6 +178,36 @@ h1 {
 .difficulty-very-hard {
     background: #ffa8a8;
     color: #c92a2a;
+}
+
+.scenario-role {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.role-gm {
+    background: #ffd6d6;
+    color: #c92a2a;
+}
+
+.role-pl {
+    background: #d0ebff;
+    color: #1971c2;
+}
+
+.role-viewed {
+    background: #e7f5ff;
+    color: #5c7cfa;
 }
 
 .modal {

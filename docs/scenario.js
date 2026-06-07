@@ -150,15 +150,44 @@ function renderFilteredScenarios(filtered) {
     const systemName = systemInfo[systems].name || '';
     const systemHeader = document.createElement('div');
     systemHeader.className = 'system-header';
-    // systemHeader.style.color = systemColor;
+    systemHeader.style.color = systemColor;
     systemHeader.textContent = systemName;
     grid.appendChild(systemHeader);
 
     systemScenarios.forEach(scenario => {
       const card = document.createElement('div');
       card.className = 'scenario-card';
+
+      // 役割ごとのバッジを生成
+      let roleHtml = '';
+      let hoDisplayed = false;
+      if (scenario.role && scenario.role.length > 0) {
+        roleHtml = scenario.role.map(role => {
+          let roleClass = 'role-badge';
+          let roleText = escapeHtml(role);
+
+          if (role === 'GM') {
+            roleClass += ' role-gm';
+          } else if (role === 'PL') {
+            roleClass += ' role-pl';
+            // PL役の場合、HO情報を含める
+            if (scenario.HO) {
+              roleText = `PL: ${escapeHtml(scenario.HO)}`;
+              hoDisplayed = true;
+            }
+          } else if (role === '視聴済み') {
+            roleClass += ' role-viewed';
+          }
+
+          return `<span class="${roleClass}">${roleText}</span>`;
+        }).join('');
+      }
+
       card.innerHTML = `
-                <div class="scenario-name">${escapeHtml(scenario.name)}</div>
+                <div class="scenario-name">
+                    <span>${escapeHtml(scenario.name)} ${!hoDisplayed && scenario.HO ? ` / <span class="scenario-ho">HO: ${escapeHtml(scenario.HO)}</span>` : ''}</span>
+                    ${roleHtml ? `<div class="scenario-role">${roleHtml}</div>` : ''}
+                </div>
             `;
       grid.appendChild(card);
     });
