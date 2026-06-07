@@ -53,11 +53,23 @@ async function loadScenarios() {
     madamis_data.forEach(scenario => {
       scenario.system = 'madamis';
     });
-    console.log('マダミスデータ:', madamis_data);
 
+    // DX3rdのシナリオデータを読み込む
+    const dx3rd_response = await fetch('./data/dx3rd.json');
+    const dx3rd_data = await dx3rd_response.json();
+    dx3rd_data.forEach(scenario => {
+      scenario.system = 'dx3rd';
+    });
+
+    // インセインのシナリオデータを読み込む
+    const insane_response = await fetch('./data/insane.json');
+    const insane_data = await insane_response.json();
+    insane_data.forEach(scenario => {
+      scenario.system = 'insane';
+    });
 
     // シナリオデータを統合して表示
-    scenarios = [...coc6th_data, ...madamis_data];
+    scenarios = [...coc6th_data, ...madamis_data, ...dx3rd_data, ...insane_data];
     renderScenarios();
   } catch (error) {
     console.error('エラー:', error);
@@ -115,7 +127,7 @@ function renderFilteredScenarios(filtered) {
   }
   // システムごとに分けて表示
   grid.innerHTML = '';
-  const systems = ["coc6th", "madamis"];
+  const systems = ["coc6th", "madamis", "dx3rd", "insane"];
   systems.forEach(systems => {
     const systemScenarios = filtered.filter(s => s.system === systems);
     if (systemScenarios.length === 0) return;
