@@ -8,6 +8,29 @@ let systemInfo = [];
 document.addEventListener('DOMContentLoaded', async () => {
   await loadScenarios();
   document.getElementById('searchInput').addEventListener('input', filterScenarios);
+
+  // タブ切り替えの処理
+  const tabContainer = document.querySelector('.tab-container');
+  const tabMenuItems = tabContainer.querySelectorAll('ul li');
+  const tabContents = tabContainer.querySelectorAll('.tab-content');
+  const slideIndicator = tabContainer.querySelector('.slide-indicator');
+
+  tabMenuItems.forEach((tabMenuItem, index) => {
+    tabMenuItem.addEventListener('click', () => {
+      tabMenuItems.forEach(item => {
+        item.classList.remove('selected');
+      });
+      tabMenuItem.classList.add('selected');
+
+      tabContents.forEach(tabContent => {
+        tabContent.classList.remove('selected');
+      });
+      document.getElementById(tabMenuItem.dataset.id).classList.add('selected');
+
+      // スライドインジケーターの位置を更新
+      slideIndicator.style.transform = `translateX(${index * 100}%)`;
+    });
+  });
 });
 
 // 表示データ読み込み
@@ -23,7 +46,18 @@ async function loadScenarios() {
       scenario.system = 'coc6th';
     });
 
-    scenarios = Array.isArray(coc6th_data) ? coc6th_data : [];
+    // マダミスのシナリオデータを読み込む
+    console.log('システム情報:', systemInfo);
+    const madamis_response = await fetch('./data/madamis.json');
+    const madamis_data = await madamis_response.json();
+    madamis_data.forEach(scenario => {
+      scenario.system = 'madamis';
+    });
+    console.log('マダミスデータ:', madamis_data);
+
+
+    // シナリオデータを統合して表示
+    scenarios = [...coc6th_data, ...madamis_data];
     renderScenarios();
   } catch (error) {
     console.error('エラー:', error);
@@ -39,8 +73,7 @@ function filterScenarios() {
   const searchText = document.getElementById('searchInput').value.toLowerCase();
   if (searchText) {
     filtered = filtered.filter(s =>
-      s.name.toLowerCase().includes(searchText) ||
-      s.memo.toLowerCase().includes(searchText)
+      s.name.toLowerCase().includes(searchText)
     );
   }
 
@@ -82,7 +115,7 @@ function renderFilteredScenarios(filtered) {
   }
   // システムごとに分けて表示
   grid.innerHTML = '';
-  const systems = ["coc6th"];
+  const systems = ["coc6th", "madamis"];
   systems.forEach(systems => {
     const systemScenarios = filtered.filter(s => s.system === systems);
     if (systemScenarios.length === 0) return;
@@ -133,27 +166,3 @@ function escapeHtml(text) {
   };
   return text.replace(/[&<>"']/g, m => map[m]);
 }
-
-
-// タブ切り替えの処理
-const tabContainer = document.querySelector('.tab-container');
-const tabMenuItems = tabContainer.querySelectorAll('ul li');
-const tabContents = tabContainer.querySelectorAll('.tab-content');
-const slideIndicator = tabContainer.querySelector('.slide-indicator');
-
-tabMenuItems.forEach((tabMenuItem, index) => {
-  tabMenuItem.addEventListener('click', () => {
-    tabMenuItems.forEach(item => {
-      item.classList.remove('selected');
-    });
-    tabMenuItem.classList.add('selected');
-
-    tabContents.forEach(tabContent => {
-      tabContent.classList.remove('selected');
-    });
-    document.getElementById(tabMenuItem.dataset.id).classList.add('selected');
-
-    // スライドインジケーターの位置を更新
-    slideIndicator.style.transform = `translateX(${index * 100}%)`;
-  });
-});
