@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // 選択状態を更新
       filterTags.forEach(t => t.classList.remove('selected'));
       tag.classList.add('selected');
-      
+
       // アクティブなフィルタを更新
       activeSystemFilter = tag.dataset.filter;
       filterScenarios();
