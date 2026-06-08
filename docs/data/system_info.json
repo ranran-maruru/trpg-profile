@@ -1,10 +1,10 @@
  {
-    "coc6th": {"color": "#72EE9A","name": "CoC 6th"},
-    "coc7th": {"color": "#EDD472","name": "CoC 7th"},
-    "dx3rd": {"color": "#72BEEA","name": "DX3rd"},
-    "futarisousa": {"color": "#6E5A5A","name": "フタリソウサ"},
-    "insane": {"color": "#E27272","name": "インセイン"},
-    "madamis": {"color": "#E27272","name": "マーダーミステリー"},
-    "bullet": {"color": "#E27272","name": "キズナバレット"},
-    "other": {"color": "#BEBEBE","name": "その他"}
+    "coc6th": {"backgroundColor":"#e6f4e8","color": "#497353","name": "CoC 6th","icon":"fa-brands fa-octopus-deploy"},
+    "coc7th": {"backgroundColor":"#FBF0E2","color": "#857050","name": "CoC 7th","icon":"fa-brands fa-octopus-deploy"},
+    "dx3rd": {"backgroundColor":"","color": "#72BEEA","name": "DX3rd","icon":"fa-microchip"},
+    "futarisousa": {"backgroundColor":"#F5E6D3","color": "#8B7355","name": "フタリソウサ","icon":"fa-magnifying-glass"},
+    "insane": {"backgroundColor":"#f0f0f0","color": "#656565","name": "インセイン","icon":"fa-brain"},
+    "madamis": {"backgroundColor":"#FFEDEA","color": "#915149","name": "マーダーミステリー","icon":"fa-dagger"},
+    "bullet": {"backgroundColor":"","color": "#E27272","name": "キズナバレット","icon":"fa-gun"},
+    "other": {"backgroundColor":"","color": "#BEBEBE","name": "その他","icon":"fa-circle-question"}
 }

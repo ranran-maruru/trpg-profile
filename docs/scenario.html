@@ -30,27 +30,26 @@
         <div class="tab-content selected" id="tab-1">
           <!-- フィルタ・検索 -->
           <div class="scenarios-section">
-            <div class="filter-section display-none">
-              <div>
-                <label for="searchInput">検索</label>
+            <div class="scenarios-header">
+              <div class="search-box">
                 <input
                   type="text"
                   id="searchInput"
                   placeholder="シナリオ名で検索"
                 />
               </div>
-              <div>
-                <label for="sortBy">ソート</label>
-                <select id="sortBy" onchange="filterScenarios()">
-                  <option value="date-desc">最新順</option>
-                  <option value="date-asc">古い順</option>
-                  <option value="name">シナリオ名順</option>
-                </select>
-              </div>
+              <div class="stats" id="stats"></div>
+            </div>
+            <div class="filter-tags">
+              <button class="filter-tag selected" data-filter="all"
+                >すべて</button
+              >
+              <button class="filter-tag" data-filter="coc6th">CoC 6th</button>
+              <button class="filter-tag" data-filter="coc7th">CoC 7th</button>
+              <button class="filter-tag" data-filter="madamis">マダミス</button>
+              <button class="filter-tag" data-filter="dx3rd">DX 3rd</button>
             </div>
 
-            <!-- 統計情報 -->
-            <div class="stats" id="stats"> </div>
             <!-- シナリオ一覧 -->
             <div class="scenarios-grid" id="scenariosGrid">
               <div class="empty-state">

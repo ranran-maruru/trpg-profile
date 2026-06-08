@@ -12,11 +12,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // タブ切り替えの処理
   const tabContainer = document.querySelector('.tabs');
   const tabMenuItems = tabContainer.querySelectorAll('ul li');
-  const tabContents = tabContainer.querySelectorAll('.tab-content');
   const slideIndicator = tabContainer.querySelector('.slide-indicator');
 
   tabMenuItems.forEach((tabMenuItem, index) => {
     tabMenuItem.addEventListener('click', () => {
+      // クリック時に毎回タブコンテンツを取得
+      const tabContents = document.querySelector('.tab-container').querySelectorAll('.tab-content');
+
       tabMenuItems.forEach(item => {
         item.classList.remove('selected');
       });
@@ -103,8 +105,9 @@ function filterScenarios() {
     );
   }
 
-  // ソート
-  const sortBy = document.getElementById('sortBy').value;
+  // ソート（デフォルト：最新順）
+  const sortByElement = document.getElementById('sortBy');
+  const sortBy = sortByElement ? sortByElement.value : 'date-desc';
   switch (sortBy) {
     case 'date-desc':
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -147,7 +150,9 @@ function renderFilteredScenarios(filtered) {
     if (systemScenarios.length === 0) return;
 
     const systemColor = systemInfo[systems].color || '#ccc';
+    const systemBackgroundColor = systemInfo[systems].backgroundColor || '#f0f0f0';
     const systemName = systemInfo[systems].name || '';
+    const systemIcon = systemInfo[systems].icon ? `<i class="fas ${systemInfo[systems].icon}"></i>` : '';
     const systemHeader = document.createElement('div');
     systemHeader.className = 'system-header';
     systemHeader.style.color = systemColor;
@@ -163,7 +168,7 @@ function renderFilteredScenarios(filtered) {
       let hoDisplayed = false;
       if (scenario.role && scenario.role.length > 0) {
         roleHtml = scenario.role.map(role => {
-          let roleClass = 'role-badge';
+          let roleClass = 'badge role-badge';
           let roleText = escapeHtml(role);
 
           if (role === 'GM') {
@@ -186,7 +191,11 @@ function renderFilteredScenarios(filtered) {
       card.innerHTML = `
                 <div class="scenario-name">
                     <span>${escapeHtml(scenario.name)} ${!hoDisplayed && scenario.HO ? ` / <span class="scenario-ho">HO: ${escapeHtml(scenario.HO)}</span>` : ''}</span>
+                </div>
+                <div class="scenario-meta-badges">
+                    <span class="badge system-badge" style="color: ${systemColor}; background-color: ${systemBackgroundColor}; ">${systemIcon} ${systemName}</span>
                     ${roleHtml ? `<div class="scenario-role">${roleHtml}</div>` : ''}
+                    ${scenario.date ? `<span class="badge date-badge">${formatDate(scenario.date)}</span>` : ''}
                 </div>
             `;
       grid.appendChild(card);

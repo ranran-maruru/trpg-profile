@@ -95,7 +95,7 @@ h1 {
   transform: translateY(-1px);
 }
 
-.tabs .tab-content {
+.tab-content {
   display: none;
   padding: 24px;
   min-height: 150px;
@@ -105,7 +105,7 @@ h1 {
   margin-top: 16px;
 }
 
-.tabs .tab-content.selected {
+.tab-content.selected {
   display: block;
   animation: slideContentIn 0.3s ease-out;
 }
@@ -126,21 +126,33 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    white-space: nowrap;
 }
 
 .stat-value {
-    font-size: small;
-    color: #8a8a8a;
-    padding: 5px 10px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
 }
 
 .stat-label {
-    font-size: 14px;
-    opacity: 0.9;
+    font-size: 12px;
+    color: #999;
 }
 
 .scenarios-section {
     margin-top: 30px;
+}
+
+.system-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 0;
+    border-bottom: 2px solid;
 }
 
 .scenarios-header {
@@ -148,28 +160,77 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 20px;
 }
 
 .search-box {
     flex: 1;
-    max-width: 300px;
+    min-width: 250px;
 }
 
 .search-box input {
     width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+.search-box input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filter-tag {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: white;
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.filter-tag:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.filter-tag.selected {
+    background: #333;
+    color: white;
+    border-color: #333;
 }
 
 .scenarios-grid {
     display: grid;
-    gap: 5px;
+    gap: 15px;
 }
 
 .scenario-card {
     background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 10px 20px;
-    transition: all 0.3s;;
+    padding: 20px;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .scenario-card:hover {
@@ -178,10 +239,15 @@ h1 {
 
 .scenario-name {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
-    flex-wrap: wrap;
     font-weight: 500;
+    color: #333;
+}
+
+.scenario-name > span:first-child {
+    font-size: 18px;
+    font-weight: bold;
     color: #333;
 }
 
@@ -281,13 +347,37 @@ h1 {
     flex-wrap: wrap;
 }
 
-.role-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 11px;
+.scenario-meta-badges {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+/* バッジ基本スタイル */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 5px;
+    border-radius: 3px;
     font-weight: 600;
     white-space: nowrap;
+    font-size: 11px;
+}
+
+.system-badge {
+    gap: 4px;
+    background: #f0f0f0;
+}
+
+.date-badge {
+    background: #e8e8e8;
+    color: #666;
+}
+
+.role-badge {
+    font-size: 11px;
 }
 
 .role-gm {
