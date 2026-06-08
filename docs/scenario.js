@@ -3,11 +3,26 @@
 let scenarios = [];
 let editingId = null;
 let systemInfo = [];
+let activeSystemFilter = 'all'; // アクティブなシステムフィルタ
 
 // 初期化
 document.addEventListener('DOMContentLoaded', async () => {
   await loadScenarios();
   document.getElementById('searchInput').addEventListener('input', filterScenarios);
+
+  // フィルタータグのクリックハンドラ
+  const filterTags = document.querySelectorAll('.filter-tag');
+  filterTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      // 選択状態を更新
+      filterTags.forEach(t => t.classList.remove('selected'));
+      tag.classList.add('selected');
+      
+      // アクティブなフィルタを更新
+      activeSystemFilter = tag.dataset.filter;
+      filterScenarios();
+    });
+  });
 
   // タブ切り替えの処理
   const tabContainer = document.querySelector('.tabs');
@@ -96,6 +111,11 @@ async function loadScenarios() {
 // フィルタリングと表示
 function filterScenarios() {
   let filtered = [...scenarios];
+
+  // システムフィルタ
+  if (activeSystemFilter !== 'all') {
+    filtered = filtered.filter(s => s.system === activeSystemFilter);
+  }
 
   // 検索フィルタ
   const searchText = document.getElementById('searchInput').value.toLowerCase();
