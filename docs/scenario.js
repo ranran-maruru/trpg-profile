@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('searchInput').addEventListener('input', filterScenarios);
 
   // タブ切り替えの処理
-  const tabContainer = document.querySelector('.tab-container');
+  const tabContainer = document.querySelector('.tabs');
   const tabMenuItems = tabContainer.querySelectorAll('ul li');
   const tabContents = tabContainer.querySelectorAll('.tab-content');
   const slideIndicator = tabContainer.querySelector('.slide-indicator');
@@ -40,8 +40,8 @@ async function loadScenarios() {
     systemInfo = await fetch('./data/system_info.json').then(res => res.json());
 
     // 6版のシナリオデータを読み込む
-    const response = await fetch('./data/coc6th.json');
-    const coc6th_data = await response.json();
+    const coc6th_response = await fetch('./data/coc6th.json');
+    const coc6th_data = await coc6th_response.json();
     coc6th_data.forEach(scenario => {
       scenario.system = 'coc6th';
     });

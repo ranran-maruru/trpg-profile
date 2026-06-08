@@ -8,15 +8,24 @@
     <title>シナリオ管理</title>
   </head>
   <body>
+    <div class="header">
+      <img src="data/icon.png" alt="アイコン" class="header-icon" />
+      <span class="header-text">
+        <span class="header-title">シナリオ管理</span>
+        <span class="header-subtitle">らんまるが遊んだシナリオ</span>
+      </span>
+    </div>
+    <div class="tabs">
+      <ul>
+        <!-- スライド用のインジケーター -->
+        <div class="slide-indicator"></div>
+        <li class="selected" data-id="tab-1">通過済みリスト</li>
+        <li data-id="tab-2">GMできるシナリオ</li>
+        <li data-id="tab-3">行きたいシナリオ</li>
+      </ul>
+    </div>
     <div class="container">
       <div class="tab-container">
-        <ul>
-          <!-- スライド用のインジケーター -->
-          <div class="slide-indicator"></div>
-          <li class="selected" data-id="tab-1">通過済みリスト</li>
-          <li data-id="tab-2">GMできるシナリオ</li>
-          <li data-id="tab-3">行きたいシナリオ</li>
-        </ul>
         <!-- 通過済みリスト -->
         <div class="tab-content selected" id="tab-1">
           <!-- フィルタ・検索 -->
