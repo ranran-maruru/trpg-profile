@@ -97,7 +97,6 @@ h1 {
 
 .tab-content {
   display: none;
-  padding: 24px;
   min-height: 150px;
   background: #fefefe;
   margin-top: 16px;
@@ -155,22 +154,20 @@ h1 {
 
 .scenarios-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 20px;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .search-box {
-    flex: 1;
-    min-width: 250px;
+    width: 100%;
 }
 
 .search-box input {
     width: 100%;
     padding: 10px 15px;
     border: 1px solid #ddd;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 14px;
     outline: none;
 }
@@ -184,11 +181,20 @@ h1 {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+.stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    white-space: nowrap;
+}
+
 .filter-tags {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .filter-tag {
