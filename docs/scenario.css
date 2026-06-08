@@ -100,8 +100,6 @@ h1 {
   padding: 24px;
   min-height: 150px;
   background: #fefefe;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
   margin-top: 16px;
 }
 
@@ -219,22 +217,22 @@ h1 {
 
 .scenarios-grid {
     display: grid;
-    gap: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
 }
 
 .scenario-card {
     background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
+    padding: 15px 20px;
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.scenario-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.scenario-card:last-child {
+    border-bottom: none;
 }
 
 .scenario-name {
@@ -372,14 +370,17 @@ h1 {
 }
 
 .date-badge {
-    background: #e8e8e8;
-    color: #666;
+    background: #FFF;
+    color: #a0a0a0;
+    border: 1px solid #a0a0a0;
 }
 
 .role-badge {
     font-size: 11px;
+    background: #ddf6f5;
+    color: #087e8b;
 }
-
+/* 
 .role-gm {
     background: #ffd6d6;
     color: #c92a2a;
@@ -393,7 +394,7 @@ h1 {
 .role-viewed {
     background: #e7f5ff;
     color: #5c7cfa;
-}
+} */
 
 .modal {
     display: none;

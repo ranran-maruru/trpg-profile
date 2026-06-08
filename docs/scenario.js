@@ -153,11 +153,7 @@ function renderFilteredScenarios(filtered) {
     const systemBackgroundColor = systemInfo[systems].backgroundColor || '#f0f0f0';
     const systemName = systemInfo[systems].name || '';
     const systemIcon = systemInfo[systems].icon ? `<i class="fas ${systemInfo[systems].icon}"></i>` : '';
-    const systemHeader = document.createElement('div');
-    systemHeader.className = 'system-header';
-    systemHeader.style.color = systemColor;
-    systemHeader.textContent = systemName;
-    grid.appendChild(systemHeader);
+
 
     systemScenarios.forEach(scenario => {
       const card = document.createElement('div');
@@ -195,7 +191,7 @@ function renderFilteredScenarios(filtered) {
                 <div class="scenario-meta-badges">
                     <span class="badge system-badge" style="color: ${systemColor}; background-color: ${systemBackgroundColor}; ">${systemIcon} ${systemName}</span>
                     ${roleHtml ? `<div class="scenario-role">${roleHtml}</div>` : ''}
-                    ${scenario.date ? `<span class="badge date-badge">${formatDate(scenario.date)}</span>` : ''}
+                    ${scenario.date ? `<span class="badge date-badge">${scenario.date}</span>` : ''}
                 </div>
             `;
       grid.appendChild(card);
