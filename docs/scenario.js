@@ -70,6 +70,13 @@ async function loadScenarios() {
       scenario.system = 'coc7th';
     });
 
+    // エモクロアのシナリオデータを読み込む
+    const emoklore_response = await fetch('./data/emoklore.json');
+    const emoklore_data = await emoklore_response.json();
+    emoklore_data.forEach(scenario => {
+      scenario.system = 'emoklore';
+    });
+
     // マダミスのシナリオデータを読み込む
     console.log('システム情報:', systemInfo);
     const madamis_response = await fetch('./data/madamis.json');
@@ -99,8 +106,15 @@ async function loadScenarios() {
       scenario.system = 'futarisousa';
     });
 
+    // その他のシナリオデータも同様に読み込む...
+    const other_response = await fetch('./data/other.json');
+    const other_data = await other_response.json();
+    other_data.forEach(scenario => {
+      scenario.system = 'other';
+    });
+
     // シナリオデータを統合して表示
-    scenarios = [...coc6th_data, ...coc7th_data, ...madamis_data, ...dx3rd_data, ...insane_data, ...futarisousa_data];
+    scenarios = [...coc6th_data, ...coc7th_data, ...emoklore_data, ...madamis_data, ...dx3rd_data, ...insane_data, ...futarisousa_data, ...other_data];
     renderScenarios();
   } catch (error) {
     console.error('エラー:', error);
@@ -164,7 +178,7 @@ function renderFilteredScenarios(filtered) {
   }
   // システムごとに分けて表示
   grid.innerHTML = '';
-  const systems = ["coc6th", "coc7th", "madamis", "dx3rd", "insane", "futarisousa"];
+  const systems = ["coc6th", "coc7th", "emoklore", "madamis", "dx3rd", "insane", "futarisousa", "other"];
   systems.forEach(systems => {
     const systemScenarios = filtered.filter(s => s.system === systems);
     if (systemScenarios.length === 0) return;

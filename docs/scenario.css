@@ -21,6 +21,8 @@ h1 {
 
 /* ヘッダー */
 .header {
+    margin: 0 auto 20px auto;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -55,7 +57,15 @@ h1 {
 
 
 /* タブ */
+.tabs {
+  max-width: 1000px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
 .tabs ul {
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
