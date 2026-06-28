@@ -59,6 +59,7 @@ async function loadScenarios() {
     // 6版のシナリオデータを読み込む
     const coc6th_response = await fetch('./data/coc6th.json');
     const coc6th_data = await coc6th_response.json();
+    coc6th_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     coc6th_data.forEach(scenario => {
       scenario.system = 'coc6th';
     });
@@ -66,6 +67,7 @@ async function loadScenarios() {
     // 7版のシナリオデータを読み込む
     const coc7th_response = await fetch('./data/coc7th.json');
     const coc7th_data = await coc7th_response.json();
+    coc7th_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     coc7th_data.forEach(scenario => {
       scenario.system = 'coc7th';
     });
@@ -73,6 +75,7 @@ async function loadScenarios() {
     // エモクロアのシナリオデータを読み込む
     const emoklore_response = await fetch('./data/emoklore.json');
     const emoklore_data = await emoklore_response.json();
+    emoklore_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     emoklore_data.forEach(scenario => {
       scenario.system = 'emoklore';
     });
@@ -81,6 +84,7 @@ async function loadScenarios() {
     console.log('システム情報:', systemInfo);
     const madamis_response = await fetch('./data/madamis.json');
     const madamis_data = await madamis_response.json();
+    madamis_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     madamis_data.forEach(scenario => {
       scenario.system = 'madamis';
     });
@@ -88,6 +92,7 @@ async function loadScenarios() {
     // DX3rdのシナリオデータを読み込む
     const dx3rd_response = await fetch('./data/dx3rd.json');
     const dx3rd_data = await dx3rd_response.json();
+    dx3rd_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     dx3rd_data.forEach(scenario => {
       scenario.system = 'dx3rd';
     });
@@ -95,6 +100,7 @@ async function loadScenarios() {
     // インセインのシナリオデータを読み込む
     const insane_response = await fetch('./data/insane.json');
     const insane_data = await insane_response.json();
+    insane_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     insane_data.forEach(scenario => {
       scenario.system = 'insane';
     });
@@ -102,6 +108,7 @@ async function loadScenarios() {
     // フタリソウサのシナリオデータを読み込む
     const futarisousa_response = await fetch('./data/futarisousa.json');
     const futarisousa_data = await futarisousa_response.json();
+    futarisousa_data.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     futarisousa_data.forEach(scenario => {
       scenario.system = 'futarisousa';
     });
