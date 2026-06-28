@@ -1,8 +1,8 @@
 ﻿[
 {"name":"正しい銀行強盗の行い方","role":["PL"],"date":"2024/05"},
-{"name":"Show Dramatic Rouge","role":["GM"]},
+{"name":"Show Dramatic Rouge","role":["GM","PL"]},
 {"name":"フタリチェイス","role":["PL"],"date":"2024/01"},
-{"name":"Welcome to Show Masquerade","role":["GM"]},
+{"name":"Welcome to Show Masquerade","role":["GM","PL"]},
 {"name":"猫が導く殺人事件","role":["GM"]},
 {"name":"太陽に憧れたヤクザ","role":["PL"]},
 {"name":"怪盗からの誘惑","role":["PL"],"date":"2025/06"},
