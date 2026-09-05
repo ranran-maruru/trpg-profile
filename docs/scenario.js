@@ -214,7 +214,7 @@ function renderFilteredScenarios(filtered) {
             roleClass += ' role-pl';
             // PL役の場合、HO情報を含める
             if (scenario.HO) {
-              roleText = `PL: ${escapeHtml(scenario.HO)}`;
+              roleText = `PL； ${escapeHtml(scenario.HO)}`;
               hoDisplayed = true;
             }
           } else if (role === '視聴済み') {
