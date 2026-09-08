@@ -159,23 +159,17 @@ async function loadScenarios() {
   }
 }
 
-// 日付を数値に変換（「準備中」や未記入は null）
-function dateValue(scenario) {
-  if (!scenario.date) return null;
-  const time = new Date(scenario.date).getTime();
-  return isNaN(time) ? null : time;
+// 名前順の比較用キー（全角英数字を半角に揃え、前後の空白を落とす）
+// reading（よみがな）があればそちらを使う。漢字は文字コード順に並んでしまうため
+function nameKey(scenario) {
+  const key = scenario.reading || scenario.name || '';
+  return String(key).normalize('NFKC').trim();
 }
 
-// 日付で比較（日付として解釈できないものは常に末尾へ）
-function compareByDate(a, b, desc) {
-  const aValue = dateValue(a);
-  const bValue = dateValue(b);
-
-  if (aValue === null && bValue === null) return 0;
-  if (aValue === null) return 1;
-  if (bValue === null) return -1;
-
-  return desc ? bValue - aValue : aValue - bValue;
+// 名前で比較（数字は数値として扱うので「31」で始まるシリーズがまとまる）
+// 同名（HO違いなど）はデータの記載順を保つ（Array#sort は安定ソート）
+function compareByName(a, b) {
+  return nameKey(a).localeCompare(nameKey(b), 'ja', { numeric: true });
 }
 
 // フィルタリングと表示
@@ -192,29 +186,18 @@ function filterScenarios(view) {
     filtered = filtered.filter(s => s.system === view.activeSystemFilter);
   }
 
-  // 検索フィルタ
+  // 検索フィルタ（シナリオ名と reading のどちらでもヒットする）
   const searchInput = document.getElementById(view.searchInputId);
   const searchText = searchInput ? searchInput.value.toLowerCase() : '';
   if (searchText) {
     filtered = filtered.filter(s =>
-      s.name.toLowerCase().includes(searchText)
+      s.name.toLowerCase().includes(searchText) ||
+      (s.reading || '').toLowerCase().includes(searchText)
     );
   }
 
-  // ソート（デフォルト：最新順）
-  const sortByElement = document.getElementById('sortBy');
-  const sortBy = sortByElement ? sortByElement.value : 'date-desc';
-  switch (sortBy) {
-    case 'date-desc':
-      filtered.sort((a, b) => compareByDate(a, b, true));
-      break;
-    case 'date-asc':
-      filtered.sort((a, b) => compareByDate(a, b, false));
-      break;
-    case 'name':
-      filtered.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
-      break;
-  }
+  // 並び順は名前順で固定
+  filtered.sort(compareByName);
 
   renderFilteredScenarios(filtered, view);
 }
@@ -288,7 +271,6 @@ function renderFilteredScenarios(filtered, view) {
                 <div class="scenario-meta-badges">
                     <span class="badge system-badge" style="color: ${systemColor}; background-color: ${systemBackgroundColor}; ">${systemIcon} ${systemName}</span>
                     ${roleHtml ? `<div class="scenario-role">${roleHtml}</div>` : ''}
-                    ${scenario.date ? `<span class="badge date-badge">${scenario.date}</span>` : ''}
                 </div>
             `;
       grid.appendChild(card);
@@ -308,11 +290,6 @@ function updateStats() {
 
 
 // ユーティリティ関数
-function formatDate(dateStr) {
-  const date = new Date(dateStr + 'T00:00:00');
-  return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
 function escapeHtml(text) {
   const map = {
     '&': '&amp;',
