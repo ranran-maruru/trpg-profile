@@ -3,26 +3,56 @@
 let scenarios = [];
 let editingId = null;
 let systemInfo = [];
-let activeSystemFilter = 'all'; // アクティブなシステムフィルタ
+
+// タブごとの一覧表示の設定
+const listViews = [
+  {
+    // 通過済みリスト
+    tabId: 'tab-1',
+    gridId: 'scenariosGrid',
+    searchInputId: 'searchInput',
+    emptyIcon: '📚',
+    emptyMessage: '該当するシナリオがありません。',
+    baseFilter: null, // 全シナリオが対象
+    activeSystemFilter: 'all',
+  },
+  {
+    // GMできるシナリオ（GMラベルが付いているものだけ）
+    tabId: 'tab-2',
+    gridId: 'gmScenariosGrid',
+    searchInputId: 'gmSearchInput',
+    emptyIcon: '🎲',
+    emptyMessage: '該当するGMシナリオがありません。',
+    baseFilter: s => Array.isArray(s.role) && s.role.includes('GM'),
+    activeSystemFilter: 'all',
+  },
+];
 
 // 初期化
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadScenarios();
-  document.getElementById('searchInput').addEventListener('input', filterScenarios);
+  // 一覧ごとの検索・フィルタのハンドラを設定
+  listViews.forEach(view => {
+    const searchInput = document.getElementById(view.searchInputId);
+    if (searchInput) {
+      searchInput.addEventListener('input', () => filterScenarios(view));
+    }
 
-  // フィルタータグのクリックハンドラ
-  const filterTags = document.querySelectorAll('.filter-tag');
-  filterTags.forEach(tag => {
-    tag.addEventListener('click', () => {
-      // 選択状態を更新
-      filterTags.forEach(t => t.classList.remove('selected'));
-      tag.classList.add('selected');
+    // フィルタータグのクリックハンドラ（タブ内に限定）
+    const filterTags = document.querySelectorAll(`#${view.tabId} .filter-tag`);
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        // 選択状態を更新
+        filterTags.forEach(t => t.classList.remove('selected'));
+        tag.classList.add('selected');
 
-      // アクティブなフィルタを更新
-      activeSystemFilter = tag.dataset.filter;
-      filterScenarios();
+        // アクティブなフィルタを更新
+        view.activeSystemFilter = tag.dataset.filter;
+        filterScenarios(view);
+      });
     });
   });
+
+  await loadScenarios();
 
   // タブ切り替えの処理
   const tabContainer = document.querySelector('.tabs');
@@ -130,16 +160,22 @@ async function loadScenarios() {
 }
 
 // フィルタリングと表示
-function filterScenarios() {
+function filterScenarios(view) {
   let filtered = [...scenarios];
 
+  // 一覧ごとの絞り込み（GMできるシナリオなど）
+  if (view.baseFilter) {
+    filtered = filtered.filter(view.baseFilter);
+  }
+
   // システムフィルタ
-  if (activeSystemFilter !== 'all') {
-    filtered = filtered.filter(s => s.system === activeSystemFilter);
+  if (view.activeSystemFilter !== 'all') {
+    filtered = filtered.filter(s => s.system === view.activeSystemFilter);
   }
 
   // 検索フィルタ
-  const searchText = document.getElementById('searchInput').value.toLowerCase();
+  const searchInput = document.getElementById(view.searchInputId);
+  const searchText = searchInput ? searchInput.value.toLowerCase() : '';
   if (searchText) {
     filtered = filtered.filter(s =>
       s.name.toLowerCase().includes(searchText)
@@ -161,24 +197,25 @@ function filterScenarios() {
       break;
   }
 
-  renderFilteredScenarios(filtered);
+  renderFilteredScenarios(filtered, view);
 }
 
 // シナリオを表示
 function renderScenarios() {
-  filterScenarios();
+  listViews.forEach(view => filterScenarios(view));
   // updateStats();
 }
 
 // フィルタされたシナリオを表示
-function renderFilteredScenarios(filtered) {
-  const grid = document.getElementById('scenariosGrid');
+function renderFilteredScenarios(filtered, view) {
+  const grid = document.getElementById(view.gridId);
+  if (!grid) return;
 
   if (filtered.length === 0) {
     grid.innerHTML = `
             <div class="empty-state">
-                <div class="empty-state-icon">🔍</div>
-                <p>該当するシナリオがありません。</p>
+                <div class="empty-state-icon">${view.emptyIcon}</div>
+                <p>${view.emptyMessage}</p>
             </div>
         `;
     return;
