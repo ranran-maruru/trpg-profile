@@ -260,7 +260,7 @@ h1 {
 }
 
 .scenario-name > span:first-child {
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     color: #333;
 }
