@@ -271,6 +271,7 @@ function renderFilteredScenarios(filtered, view) {
                 <div class="scenario-meta-badges">
                     <span class="badge system-badge" style="color: ${systemColor}; background-color: ${systemBackgroundColor}; ">${systemIcon} ${systemName}</span>
                     ${roleHtml ? `<div class="scenario-role">${roleHtml}</div>` : ''}
+                    ${scenario.date === '準備中' ? `<span class="badge status-badge">準備中</span>` : ''}
                 </div>
             `;
       grid.appendChild(card);
