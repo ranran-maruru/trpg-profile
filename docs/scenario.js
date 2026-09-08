@@ -159,6 +159,25 @@ async function loadScenarios() {
   }
 }
 
+// 日付を数値に変換（「準備中」や未記入は null）
+function dateValue(scenario) {
+  if (!scenario.date) return null;
+  const time = new Date(scenario.date).getTime();
+  return isNaN(time) ? null : time;
+}
+
+// 日付で比較（日付として解釈できないものは常に末尾へ）
+function compareByDate(a, b, desc) {
+  const aValue = dateValue(a);
+  const bValue = dateValue(b);
+
+  if (aValue === null && bValue === null) return 0;
+  if (aValue === null) return 1;
+  if (bValue === null) return -1;
+
+  return desc ? bValue - aValue : aValue - bValue;
+}
+
 // フィルタリングと表示
 function filterScenarios(view) {
   let filtered = [...scenarios];
@@ -187,10 +206,10 @@ function filterScenarios(view) {
   const sortBy = sortByElement ? sortByElement.value : 'date-desc';
   switch (sortBy) {
     case 'date-desc':
-      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+      filtered.sort((a, b) => compareByDate(a, b, true));
       break;
     case 'date-asc':
-      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+      filtered.sort((a, b) => compareByDate(a, b, false));
       break;
     case 'name':
       filtered.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
@@ -251,7 +270,7 @@ function renderFilteredScenarios(filtered, view) {
             roleClass += ' role-pl';
             // PL役の場合、HO情報を含める
             if (scenario.HO) {
-              roleText = `PL： ${escapeHtml(scenario.HO)}`;
+              roleText = `PL； ${escapeHtml(scenario.HO)}`;
               hoDisplayed = true;
             }
           } else if (role === '視聴済み') {
