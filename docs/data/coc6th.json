@@ -27,7 +27,7 @@
   {"name":"ミッドナイトジャンクション","role":["PL"],"date":"2026/05"},
   {"name":"悪辣","reading":"あくらつ","role":["PL"],"HO":"HO3","date":"2026/05"},
   {"name":"バビロンの豚","reading":"バビロンのぶた","role":["GM"],"date":"2026/05"},
-  {"name":"The Daydream in Quantico","role":["PL"],"date":"2026/04"},
+  {"name":"The Daydream in Quantico","role":["PL","GM"],"date":"2026/04"},
   {"name":"サイレン清掃会社","reading":"サイレンせいそうがいしゃ","role":["PL"],"HO":"HO1","date":"2026/04"},
   {"name":"天国の偽証","reading":"てんごくのぎしょう","role":["PL"],"HO":"HO2","date":"2026/04"},
   {"name":"たたら","role":["PL"],"date":"2026/04"},
